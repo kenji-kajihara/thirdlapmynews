@@ -24,6 +24,16 @@ class ProfileController extends Controller
         return redirect('admin/profile/create');
     }
     
+    public function index(Request $request){
+        $cond_title = $request->cond_title;
+        if($cond_title != '') {
+            $posts = Profile::where('name', $cond_title)->get();
+        } else {
+            $posts = Profile::all();
+        }
+        return view('admin.profile.index',['posts' => $posts, 'cond_title' => $cond_title]);
+    }
+    
     public function edit()
     {
         return view('admin.profile.edit');
